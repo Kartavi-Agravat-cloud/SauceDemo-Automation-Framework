@@ -1,11 +1,12 @@
 package tests;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import base.BaseTest;
 import pages.LoginPage;
-import org.testng.Assert;
 import utilities.ConfigReader;
+import utilities.ScreenshotUtility;
 
 public class LoginTest extends BaseTest
 {
@@ -17,6 +18,12 @@ public class LoginTest extends BaseTest
 
 		// Create ConfigReader object
 		ConfigReader configReader = new ConfigReader();
+		
+		// Create ScreenshotUtility object
+		ScreenshotUtility screenshotUtility = new ScreenshotUtility();
+
+		// Capture screenshot after login
+		screenshotUtility.captureScreenshot(driver, "LoginPage");
 		
 		// Perform login using valid credentials
 		loginPage.loginToApplication(configReader.getUsername(), configReader.getPassword());
