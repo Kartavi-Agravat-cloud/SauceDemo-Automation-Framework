@@ -7,6 +7,7 @@ import org.testng.annotations.BeforeMethod;
 import utilities.ConfigReader;
 import utilities.DriverFactory;
 
+//Common setup and teardown methods for all test classes
 public class BaseTest 
 {
 	// WebDriver reference used across framework

@@ -8,8 +8,10 @@ import pages.LoginPage;
 import utilities.ConfigReader;
 import utilities.ScreenshotUtility;
 
+//Test class for login functionality validation
 public class LoginTest extends BaseTest
 {
+	// Verify successful login and navigation to inventory page
 	@Test
 	public void getURL()
 	{	
