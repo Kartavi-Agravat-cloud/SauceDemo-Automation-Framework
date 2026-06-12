@@ -1,0 +1,13 @@
+<!-- Main test suite -->
+<suite  name="Automation Suite">
+	<!-- Login test execution -->
+	<test  name="Login Tests">
+		<!-- Test classes to execute -->
+		<classes>
+			<!-- Login test class -->
+            <class name="tests.LoginTest"/>
+            <!-- Dummy test class -->
+            <class name="tests.DummyTest"/>
+        </classes>
+	</test>
+</suite>
