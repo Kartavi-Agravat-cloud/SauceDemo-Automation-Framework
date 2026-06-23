@@ -1,47 +1,71 @@
 package tests;
 
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import base.BaseTest;
 import pages.LoginPage;
 import utilities.ConfigReader;
+import utilities.ExcelUtility;
 import utilities.ScreenshotUtility;
 
 //Test class for login functionality validation
 public class LoginTest extends BaseTest
 {
-	// Verify successful login and navigation to inventory page
-	@Test
-	public void getURL()
+	@DataProvider(name = "loginData")
+	public Object[][] getData()
+	{
+		ExcelUtility excelUtility = new ExcelUtility();
+		return excelUtility.getLoginData("./src/test/resources/testdata/LoginData.xlsx", "Sheet1");
+	}
+	
+	// Smoke test to verify successful login
+	@Test (dataProvider = "loginData", groups = {"smoke"})
+	public void getURL(String username, String password, String expectedResult)
 	{	
+		
+		System.out.println("Username = " + username);
+		System.out.println("Password = " + password);
+		System.out.println("Expected Result = " + expectedResult);
+		
 		// Create LoginPage object
 		LoginPage loginPage = new LoginPage(driver);
-
-		// Create ConfigReader object
-		ConfigReader configReader = new ConfigReader();
-		
+	
 		// Create ScreenshotUtility object
 		ScreenshotUtility screenshotUtility = new ScreenshotUtility();
-
-		// Capture screenshot after login
-		screenshotUtility.captureScreenshot(driver, "LoginPage");
+		
+		System.out.println("Username = " + username);
+		System.out.println("Password = " + password);
 		
 		// Perform login using valid credentials
-		loginPage.loginToApplication(configReader.getUsername(), configReader.getPassword());
-	
-		// Store expected URL after successful login
-		String expectedURL = "https://www.saucedemo.com/inventory.html";
+		loginPage.loginToApplication(username, password);
+			
+		// Capture screenshot after successful login
+		screenshotUtility.captureScreenshot(driver, "LoginPage");
 		
-		// Capture actual URL after login
 		String actualURL = driver.getCurrentUrl();
+
+		if(expectedResult.equalsIgnoreCase("PASS"))
+		{
+		    String expectedURL = "https://www.saucedemo.com/inventory.html";
+
+		    System.out.println("PASS Scenario");
+
+		    Assert.assertEquals(actualURL, expectedURL);
+		}
+		else if(expectedResult.equalsIgnoreCase("FAIL"))
+		{
+		    String actualError = loginPage.getErrorMessage();
+
+		    String expectedError = "Epic sadface: Sorry, this user has been locked out.";
+
+		    System.out.println("FAIL Scenario");
+		    System.out.println(actualError);
+
+		    Assert.assertEquals(actualError, expectedError);
+		}
 		
-		// Print expected and actual URL in console
-		System.out.println("Expected URL : " + expectedURL);
-		System.out.println("Actual URL : " + actualURL);
-		
-		// Validate successful navigation to inventory page
-		Assert.assertEquals(actualURL, expectedURL);
 	}
 }
  

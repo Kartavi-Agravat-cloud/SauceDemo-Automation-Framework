@@ -1,13 +1,23 @@
 <!-- Main test suite -->
 <suite  name="Automation Suite">
+<parameter name="browser" value="chrome"/>
+	<!-- Register TestNG listener -->
+	<listeners>
+    	<listener class-name="utilities.Listeners"/>
+	</listeners>
+
 	<!-- Login test execution -->
 	<test  name="Login Tests">
+		<groups>
+			<run>
+        		<include name="smoke"/>
+    		</run>
+		</groups>
+		
 		<!-- Test classes to execute -->
 		<classes>
 			<!-- Login test class -->
-            <class name="tests.LoginTest"/>
-            <!-- Dummy test class -->
-            <class name="tests.DummyTest"/>
-        </classes>
+	        <class name="tests.LoginTest"/>
+	    </classes>
 	</test>
 </suite>

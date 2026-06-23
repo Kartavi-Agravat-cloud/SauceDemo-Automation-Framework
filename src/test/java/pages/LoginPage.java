@@ -18,6 +18,9 @@ public class LoginPage
 	By password = By.id("password");
 	By login = By.id("login-button");
 	
+	// Error message displayed after failed login
+	By errorMessage = By.xpath("//h3[@data-test='error']");
+	
 	// Constructor to initialize driver and utility objects
 	public LoginPage(WebDriver driver)
 	{
@@ -56,8 +59,16 @@ public class LoginPage
 	// Perform complete login action
 	public void loginToApplication(String userNameValue, String passwordValue)
 	{
-		enterUsername(userNameValue);
-		enterPassword(passwordValue);
-		clickLogin();
+	    enterUsername(userNameValue);
+	    enterPassword(passwordValue);
+	    clickLogin();
+	}
+	
+	// Get login error message
+	public String getErrorMessage()
+	{
+	    waitUtility.waitForElementVisible(errorMessage, 10);
+
+	    return driver.findElement(errorMessage).getText();
 	}
 }

@@ -1,17 +1,18 @@
 package base;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
+
 import utilities.ConfigReader;
 import utilities.DriverFactory;
 
-//Common setup and teardown methods for all test classes
+//Common setup and tear down methods for all test classes
 public class BaseTest 
 {
 	// WebDriver reference used across framework
-	protected WebDriver driver;
+	public WebDriver driver;
 	
 	// ConfigReader object to fetch configuration values
 	ConfigReader configReader = new ConfigReader();
@@ -19,11 +20,16 @@ public class BaseTest
 	// DriverFactory object to initialize browser
 	DriverFactory driverFactory = new DriverFactory();
 	
-	@BeforeMethod 
-	public void setUp()
-	{
+	@BeforeMethod(alwaysRun = true) 
+	@Parameters ("browser")
+	public void setUp(String browser)
+	{	
+		System.out.println("Browser = " + browser);
+		
 		// Launch Chrome browser
-		driver = driverFactory.initializeWebDriver(configReader.getBrowser());
+		driver = driverFactory.initializeWebDriver(browser);
+	
+		System.out.println("Driver = " + driver);
 		
 		// Open application URL from config file
 		driver.get(configReader.getUrl());
@@ -32,7 +38,7 @@ public class BaseTest
 		driver.manage().window().maximize();
 	}
 	
-	@AfterMethod
+	@AfterMethod(alwaysRun = true)
 	public void tearDown()
 	{
 		// Close complete browser session

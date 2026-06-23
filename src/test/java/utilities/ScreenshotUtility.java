@@ -12,7 +12,7 @@ import org.openqa.selenium.WebDriver;
 public class ScreenshotUtility 
 {
     // Capture screenshot and store it in screenshots folder
-	public void captureScreenshot(WebDriver driver, String screenshotName)
+	public String captureScreenshot(WebDriver driver, String screenshotName)
 	{	
 		// Convert WebDriver object to TakesScreenshot
 		TakesScreenshot ts = (TakesScreenshot) driver;
@@ -20,9 +20,11 @@ public class ScreenshotUtility
 		// Store screenshot temporarily
 		File sourceFile = ts.getScreenshotAs(OutputType.FILE);
 				
+		String destinationPath = "./src/test/resources/screenshots/" + screenshotName + ".png";
+		
 		// Define destination path for screenshot
-		File destinationFile = new File("./src/test/resources/screenshots/" + screenshotName + ".png");
-				
+		File destinationFile = new File(destinationPath);
+		
 		try 
 		{
 			// Copy screenshot to destination folder
@@ -32,5 +34,7 @@ public class ScreenshotUtility
 		{
 			e.printStackTrace();
 		}
+		
+		return destinationPath;
 	}
 }
