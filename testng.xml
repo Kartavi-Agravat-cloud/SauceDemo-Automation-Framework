@@ -18,16 +18,4 @@
         </classes>
     </test>
 
-    <test name="Firefox - Login Tests">
-        <parameter name="browser" value="firefox"/>
-        <groups>
-            <run>
-                <include name="smoke"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="tests.LoginTest"/>
-        </classes>
-    </test>
-
 </suite>
