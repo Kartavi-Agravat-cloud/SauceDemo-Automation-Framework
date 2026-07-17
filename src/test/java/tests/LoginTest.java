@@ -6,7 +6,6 @@ import org.testng.annotations.Test;
 
 import base.BaseTest;
 import pages.LoginPage;
-import utilities.ConfigReader;
 import utilities.ExcelUtility;
 import utilities.ScreenshotUtility;
 
@@ -24,19 +23,11 @@ public class LoginTest extends BaseTest
 	@Test (dataProvider = "loginData", groups = {"smoke"})
 	public void getURL(String username, String password, String expectedResult)
 	{	
-		
-		System.out.println("Username = " + username);
-		System.out.println("Password = " + password);
-		System.out.println("Expected Result = " + expectedResult);
-		
 		// Create LoginPage object
 		LoginPage loginPage = new LoginPage(driver);
 	
 		// Create ScreenshotUtility object
 		ScreenshotUtility screenshotUtility = new ScreenshotUtility();
-		
-		System.out.println("Username = " + username);
-		System.out.println("Password = " + password);
 		
 		// Perform login using valid credentials
 		loginPage.loginToApplication(username, password);
@@ -48,24 +39,13 @@ public class LoginTest extends BaseTest
 
 		if(expectedResult.equalsIgnoreCase("PASS"))
 		{
-		    String expectedURL = "https://www.saucedemo.com/inventory.html";
-
-		    System.out.println("PASS Scenario");
-
-		    Assert.assertEquals(actualURL, expectedURL);
+		    Assert.assertEquals(actualURL, "https://www.saucedemo.com/inventory.html");
 		}
 		else if(expectedResult.equalsIgnoreCase("FAIL"))
 		{
 		    String actualError = loginPage.getErrorMessage();
-
-		    String expectedError = "Epic sadface: Sorry, this user has been locked out.";
-
-		    System.out.println("FAIL Scenario");
-		    System.out.println(actualError);
-
-		    Assert.assertEquals(actualError, expectedError);
+		    Assert.assertEquals(actualError, "Epic sadface: Sorry, this user has been locked out.");
 		}
-		
 	}
 }
  

@@ -20,7 +20,7 @@ public class ScreenshotUtility
 		// Store screenshot temporarily
 		File sourceFile = ts.getScreenshotAs(OutputType.FILE);
 				
-		String destinationPath = "./src/test/resources/screenshots/" + screenshotName + ".png";
+		String destinationPath = "./test-output/screenshots/" + screenshotName + ".png";;
 		
 		// Define destination path for screenshot
 		File destinationFile = new File(destinationPath);

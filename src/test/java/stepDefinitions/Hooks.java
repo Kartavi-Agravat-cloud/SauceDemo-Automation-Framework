@@ -26,11 +26,6 @@ public class Hooks
 		driver.manage().window().maximize();
 
 		DriverManager.setDriver(driver);
-		
-		System.out.println("Browser = " + configReader.getBrowser());
-		System.out.println("URL = " + configReader.getUrl());
-		System.out.println("Username = " + configReader.getUsername());
-		System.out.println("Password = " + configReader.getPassword());
 	}
 
 	@After

@@ -7,6 +7,7 @@ import org.testng.annotations.Parameters;
 
 import utilities.ConfigReader;
 import utilities.DriverFactory;
+import utilities.DriverManager;
 
 //Common setup and tear down methods for all test classes
 public class BaseTest 
@@ -28,6 +29,8 @@ public class BaseTest
 		
 		// Launch Chrome browser
 		driver = driverFactory.initializeWebDriver(browser);
+		
+		DriverManager.setDriver(driver);
 	
 		System.out.println("Driver = " + driver);
 		
@@ -42,6 +45,7 @@ public class BaseTest
 	public void tearDown()
 	{
 		// Close complete browser session
-		driver.quit();
+		DriverManager.getDriver().quit();
+		DriverManager.unload();
 	}
 }

@@ -1,23 +1,33 @@
 <!-- Main test suite -->
-<suite  name="Automation Suite">
-<parameter name="browser" value="chrome"/>
-	<!-- Register TestNG listener -->
-	<listeners>
-    	<listener class-name="utilities.Listeners"/>
-	</listeners>
+<suite name="Automation Suite" parallel="tests" thread-count="2">
 
-	<!-- Login test execution -->
-	<test  name="Login Tests">
-		<groups>
-			<run>
-        		<include name="smoke"/>
-    		</run>
-		</groups>
-		
-		<!-- Test classes to execute -->
-		<classes>
-			<!-- Login test class -->
-	        <class name="tests.LoginTest"/>
-	    </classes>
-	</test>
+    <!-- Register TestNG listener -->
+    <listeners>
+        <listener class-name="utilities.Listeners"/>
+    </listeners>
+
+    <test name="Chrome - Login Tests">
+        <parameter name="browser" value="chrome"/>
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="tests.LoginTest"/>
+        </classes>
+    </test>
+
+    <test name="Firefox - Login Tests">
+        <parameter name="browser" value="firefox"/>
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="tests.LoginTest"/>
+        </classes>
+    </test>
+
 </suite>
